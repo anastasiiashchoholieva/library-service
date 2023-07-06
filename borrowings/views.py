@@ -1,5 +1,4 @@
 from rest_framework import mixins, viewsets
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from borrowings.models import Borrowing
 from borrowings.serializers import (
@@ -20,6 +19,7 @@ class BorrowingViewSet(
 
     def get_queryset(self):
         is_active = self.request.query_params.get("is_active")
+        user_id = self.request.query_params.get("user_id")
 
         queryset = self.queryset
 
@@ -30,8 +30,13 @@ class BorrowingViewSet(
                 queryset = queryset.filter(actual_return_date__isnull=False)
 
         user = self.request.user
+
         if user.is_staff:
+            if user_id:
+                user_id = int(user_id)
+                return queryset.filter(user__id=user_id)
             return queryset
+
         if user.is_authenticated:
             return queryset.filter(user=user)
         return queryset.none()
