@@ -11,6 +11,10 @@ class Borrowing(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    @property
+    def is_active(self) -> bool:
+        return self.actual_return_date is None
+
     class Meta:
         constraints = [
             models.CheckConstraint(
