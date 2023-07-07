@@ -1,8 +1,11 @@
+import asyncio
+
 from rest_framework import serializers
 
 import books
 
 from borrowings.models import Borrowing
+from helpers.telegram_helper import send_telegram_message
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
@@ -37,6 +40,11 @@ class BorrowingSerializer(serializers.ModelSerializer):
 
         book.inventory -= 1
         book.save()
+
+        message = f"New borrowing created: Book {book.title}, User {user.id}: {user.email}. " \
+                  f"The return is expected on {borrowing.expected_return_date}."
+
+        asyncio.run(send_telegram_message(message))
 
         return borrowing
 
