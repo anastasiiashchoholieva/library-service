@@ -1,10 +1,16 @@
+import datetime
+from time import timezone
+
 from rest_framework import mixins, viewsets
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser
+from rest_framework.response import Response
 
 from borrowings.models import Borrowing
 from borrowings.serializers import (
     BorrowingSerializer,
     BorrowingListSerializer,
-    BorrowingDetailSerializer
+    BorrowingDetailSerializer, BorrowingReturnSerializer
 )
 
 
@@ -46,7 +52,27 @@ class BorrowingViewSet(
             return BorrowingListSerializer
         elif self.action == "retrieve":
             return BorrowingDetailSerializer
+        elif self.action == "return_borrowing":
+            return BorrowingReturnSerializer
         return super().get_serializer_class()
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    @action(
+        methods=["POST"],
+        detail=True,
+        url_path="return-borrowing"
+    )
+    def return_borrowing(self, request, pk=None):
+        borrowing = self.get_object()
+
+        if borrowing.actual_return_date is not None:
+            return Response("Borrowing has already been returned", status=400)
+
+        borrowing.actual_return_date = datetime.date.today()
+        borrowing.save()
+        borrowing.book.inventory += 1
+        borrowing.book.save()
+
+        return Response("Borrowing has been returned successfully")
