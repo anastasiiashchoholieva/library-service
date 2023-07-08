@@ -3,7 +3,6 @@ from time import timezone
 
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from borrowings.models import Borrowing
