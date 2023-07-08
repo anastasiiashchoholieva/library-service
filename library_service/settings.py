@@ -14,6 +14,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import dotenv
+from celery.schedules import crontab
 
 dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,8 @@ INSTALLED_APPS = [
     "users",
     "borrowings",
     "rest_framework",
+    "celery",
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -150,3 +153,16 @@ SIMPLE_JWT = {
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
+CELERY_BROKER_URL = "redis://localhost:6379/0"  # Update with your broker URL
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+
+CELERY_BEAT_SCHEDULE = {
+    "check_overdue_borrowings": {
+        "task": 'borrowings.tasks.check_overdue_borrowings',
+        "schedule": crontab(hour=0, minute=0),
+    },
+}
