@@ -1,6 +1,6 @@
-# tasks.py
-
+import asyncio
 from datetime import date
+
 from celery import shared_task
 
 from helpers.telegram_helper import send_telegram_message
@@ -17,6 +17,6 @@ def check_overdue_borrowings():
         for borrowing in overdue_borrowings:
             message += f"Book: {borrowing.book.title}, User: {borrowing.user.username}\n"
 
-        send_telegram_message(message)
+        asyncio.run(send_telegram_message(message))
     else:
-        send_telegram_message("No borrowings overdue today!")
+        asyncio.run(send_telegram_message("No borrowings overdue today!"))
