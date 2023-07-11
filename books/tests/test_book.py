@@ -80,14 +80,14 @@ class AdminBookApiTests(TestCase):
         payload = {
             "title": "Sample book",
             "author": "Test author",
-            "cover": "Hardcover",
+            "cover": "HARD",
             "inventory": 2,
             "daily_fee": 0.99,
         }
 
         res = self.client.post(BOOK_URL, payload)
-        book = Book.objects.get(id=res.data["id"])
-
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        for key in payload:
-            self.assertEqual(payload[key], str(getattr(book, key)))
+
+        book = Book.objects.get(id=res.data["id"])
+        serializer = BookSerializer(book)
+        self.assertEqual(res.data, serializer.data)
