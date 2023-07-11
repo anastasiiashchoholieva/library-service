@@ -6,7 +6,8 @@ from django.utils.translation import gettext_lazy as _
 class Payment(models.Model):
     class PaymentStatus(models.TextChoices):
         PENDING = "PENDING", _("Pending")
-        PAID = 'PAID', _('Paid')
+        PAID = "PAID", _("Paid")
+        CANCELLED = "CANCELLED", _("Cancelled")
 
     class PaymentType(models.TextChoices):
         PAYMENT = "PAYMENT", _("Payment")
