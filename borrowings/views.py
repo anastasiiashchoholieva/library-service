@@ -11,6 +11,7 @@ from borrowings.serializers import (
     BorrowingListSerializer,
     BorrowingDetailSerializer, BorrowingReturnSerializer
 )
+from helpers.payment_helper import create_stripe_session
 
 
 class BorrowingViewSet(
@@ -71,7 +72,13 @@ class BorrowingViewSet(
 
         borrowing.actual_return_date = datetime.date.today()
         borrowing.save()
+
         borrowing.book.inventory += 1
         borrowing.book.save()
+
+        if borrowing.actual_return_date > borrowing.expected_return_date:
+            create_stripe_session(borrowing, request)
+            return Response("Borrowing has been returned successfully. "
+                            "As there was an overdue, please, proceed to the payment.")
 
         return Response("Borrowing has been returned successfully")
