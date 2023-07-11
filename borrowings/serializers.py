@@ -38,7 +38,6 @@ class BorrowingSerializer(serializers.ModelSerializer):
 
         borrowing = Borrowing.objects.create(
             expected_return_date=validated_data["expected_return_date"],
-            actual_return_date=validated_data["actual_return_date"],
             book=book,
             user=user
         )
@@ -98,4 +97,10 @@ class BorrowingReturnSerializer(serializers.ModelSerializer):
     class Meta:
         model = Borrowing
         fields = ["id", "borrow_date", "book", "user"]
-        read_only_fields = ["borrow_date", "expected_return_date", "actual_return_date", "book", "user"]
+        read_only_fields = [
+            "borrow_date",
+            "expected_return_date",
+            "actual_return_date",
+            "book",
+            "user"
+        ]

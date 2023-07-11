@@ -31,8 +31,18 @@ def create_stripe_session(borrowing, request):
         money_to_pay = Decimal(fine_amount)
 
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    success_url = request.build_absolute_uri(reverse("payments:payment-success", kwargs={"session_id": "<session_id>"}))
-    cancel_url = request.build_absolute_uri(reverse("payments:payment-cancel", kwargs={"session_id": "<session_id>"}))
+    success_url = request.build_absolute_uri(
+        reverse(
+            "payments:payment-success",
+            kwargs={"session_id": "<session_id>"}
+        )
+    )
+    cancel_url = request.build_absolute_uri(
+        reverse(
+            "payments:payment-cancel",
+            kwargs={"session_id": "<session_id>"}
+        )
+    )
 
     session = stripe.checkout.Session.create(
         payment_method_types=["card"],

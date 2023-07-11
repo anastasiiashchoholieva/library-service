@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -13,7 +12,7 @@ class PaymentListView(generics.ListAPIView):
 
 
 class PaymentSuccessView(APIView):
-    def get(self, request, session_id):
+    def post(self, request, session_id):
         payment = Payment.objects.filter(session_id=session_id).first()
         if payment and payment.status != Payment.PaymentStatus.PAID:
             payment.status = Payment.PaymentStatus.PAID
@@ -23,7 +22,7 @@ class PaymentSuccessView(APIView):
 
 
 class PaymentCancelView(APIView):
-    def get(self, request, session_id):
+    def post(self, request, session_id):
         payment = Payment.objects.filter(session_id=session_id).first()
         if payment and payment.status != Payment.PaymentStatus.PAID:
             payment.status = Payment.PaymentStatus.CANCELLED
