@@ -10,7 +10,10 @@ from .models import Borrowing
 @shared_task
 def check_overdue_borrowings():
     today = date.today()
-    overdue_borrowings = Borrowing.objects.filter(expected_return_date__lte=today, actual_return_date=None)
+    overdue_borrowings = Borrowing.objects.filter(
+        expected_return_date__lte=today,
+        actual_return_date=None
+    )
 
     if overdue_borrowings.exists():
         message = "Overdue borrowings:\n"
