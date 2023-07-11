@@ -1,7 +1,7 @@
 import asyncio
 from rest_framework import serializers
 
-import books
+from books.serializers import BookSerializer
 
 from borrowings.models import Borrowing
 from helpers.payment_helper import create_stripe_session
@@ -76,7 +76,7 @@ class BorrowingListSerializer(BorrowingSerializer):
 
 
 class BorrowingDetailSerializer(BorrowingSerializer):
-    book = books.serializers.BookSerializer(many=False, read_only=True)
+    book = BookSerializer(many=False, read_only=True)
     payments = PaymentSerializer(many=True, read_only=True)
 
     class Meta:
