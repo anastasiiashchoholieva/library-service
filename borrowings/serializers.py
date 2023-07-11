@@ -1,14 +1,17 @@
 import asyncio
-
 from rest_framework import serializers
 
 import books
 
 from borrowings.models import Borrowing
+from helpers.payment_helper import create_stripe_session
 from helpers.telegram_helper import send_telegram_message
+from payments.serializers import PaymentSerializer
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
+    payments = PaymentSerializer(many=True, read_only=True)
+
     class Meta:
         model = Borrowing
         fields = [
@@ -18,12 +21,14 @@ class BorrowingSerializer(serializers.ModelSerializer):
             "actual_return_date",
             "book",
             "user",
-            "is_active"
+            "is_active",
+            "payments",
         ]
 
     def create(self, validated_data):
         book = validated_data["book"]
         user = self.context["request"].user
+        request = self.context["request"]
 
         if not user.is_authenticated:
             raise serializers.ValidationError("User must be authenticated to borrow a book.")
@@ -37,6 +42,8 @@ class BorrowingSerializer(serializers.ModelSerializer):
             book=book,
             user=user
         )
+
+        create_stripe_session(borrowing, request)
 
         book.inventory -= 1
         book.save()
@@ -53,6 +60,7 @@ class BorrowingListSerializer(BorrowingSerializer):
     book = serializers.SlugRelatedField(
         many=False, read_only=True, slug_field="title"
     )
+    payments = PaymentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Borrowing
@@ -63,12 +71,14 @@ class BorrowingListSerializer(BorrowingSerializer):
             "actual_return_date",
             "book",
             "user",
-            "is_active"
+            "is_active",
+            "payments"
         ]
 
 
 class BorrowingDetailSerializer(BorrowingSerializer):
     book = books.serializers.BookSerializer(many=False, read_only=True)
+    payments = PaymentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Borrowing
@@ -79,7 +89,8 @@ class BorrowingDetailSerializer(BorrowingSerializer):
             "actual_return_date",
             "book",
             "user",
-            "is_active"
+            "is_active",
+            "payments"
         ]
 
 
