@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from borrowings.models import Borrowing
+
 
 class Payment(models.Model):
     class PaymentStatus(models.TextChoices):
@@ -23,7 +25,7 @@ class Payment(models.Model):
         choices=PaymentType.choices,
         default=PaymentType.PAYMENT
     )
-    borrowing_id = models.IntegerField()
+    borrowing_id = models.ForeignKey(Borrowing, on_delete=models.CASCADE, related_name="payments")
     session_url = models.URLField()
     session_id = models.CharField(max_length=100)
     money_to_pay = models.DecimalField(max_digits=10, decimal_places=2)
