@@ -15,7 +15,7 @@ def sample_book(**params):
     defaults = {
         "title": "Sample book",
         "author": "Test author",
-        "cover": "Hardcover",
+        "cover": "HARD",
         "inventory": 2,
         "daily_fee": 0.99,
     }
