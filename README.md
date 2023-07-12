@@ -3,21 +3,6 @@
  ---
  This Django REST framework-based API serves as a RESTful interface for a library service.
 
-## Installation
-
- ---
-
-Create venv and install requirements
-```
-python -m venv venv
-venv\Scripts\activate (on Windows)
-source venv/bin/activate (on macOS)
-pip install -r requirements.txt
-```
-
-## Configuration
-
- ---
 
 ### Environment Variables
 
@@ -30,19 +15,12 @@ This project uses environment variables for configuration. To set up the require
 3. Replace the placeholder values in the `.env` file with the actual values specific to your environment.
 
 
-## Usage
+## How to run
 
- ---
-
-- To apply migrations to the database use command:
 ```
-python manage.py migrate
+docker-compose up --build
 ```
-- Use the following command to load prepared data from fixture:
-```
-python manage.py loaddata library_service_data.json
-```
-- After loading data from fixture you can use following test user for login:
+You can use this admin user
 
 Email: `admin@admin.com`
 Password: `1qazcde3`
@@ -53,10 +31,7 @@ or create one yourself using command:
 python manage.py createsuperuser
 ```
 
-- To run server use command:
-```
-python manage.py runserver
-```
+Create schedule for running everyday check of borrowings
 
  ## Features available
 
@@ -91,15 +66,3 @@ python manage.py runserver
 
 ![endpoints exept user.png](documentation_images%2Fendpoints%20exept%20user.png)
 ![user endpoint.png](documentation_images%2Fuser%20endpoint.png)
-
-### To run a periodic task, please, run following commands in 2 separate terminals:
-
-1.
-```
-docker run -d -p 6379:6379 redis
-celery -A library_service worker -l INFO
-```
-2.
-```
-celery -A library_service beat -l INFO
-```
