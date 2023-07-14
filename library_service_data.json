@@ -1,0 +1,257 @@
+[
+  {
+    "model": "books.book",
+    "pk": 1,
+    "fields": {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "cover": "HARD",
+      "inventory": 10,
+      "daily_fee": 2.99
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 2,
+    "fields": {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "cover": "HARD",
+      "inventory": 5,
+      "daily_fee": 3.49
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 3,
+    "fields": {
+      "title": "1984",
+      "author": "George Orwell",
+      "cover": "SOFT",
+      "inventory": 7,
+      "daily_fee": 1.99
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 4,
+    "fields": {
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "cover": "SOFT",
+      "inventory": 3,
+      "daily_fee": 2.49
+    }
+  },
+  {
+    "model": "books.book",
+    "pk": 5,
+    "fields": {
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "cover": "HARD",
+      "inventory": 8,
+      "daily_fee": 2.99
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$6uM28XWOFX6ewyloJzjqmt$L+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eE=",
+      "last_login": "2023-01-24T09:52:18.890",
+      "is_superuser": true,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-01-24T09:39:39.042",
+      "email": "admin@admin.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$tn2DBjAo8FhGtvVfpB1FXf$Lu0+qoZtp4clRlxrvw+UeB3yk0A8BQY9Xxam5e0sJj8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Amy",
+      "last_name": "Johnson",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-06-01T09:39:39.042",
+      "email": "amy@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$tn2DBjAo8FhGtvVfpB1FXf$Lu0+qoZtp4clRlxrvw+UeB3yk0A8BQY9Xxam5e0sJj8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Michael",
+      "last_name": "Brown",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-05-12T13:27:39.042",
+      "email": "michael@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$tn2DBjAo8FhGtvVfpB1FXf$Lu0+qoZtp4clRlxrvw+UeB3yk0A8BQY9Xxam5e0sJj8=",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Sarah",
+      "last_name": "Wilson",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-04-20T17:58:39.042",
+      "email": "sarah@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "first_name": "Paul",
+      "last_name": "Dacre",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2023-04-20T17:58:39.042",
+      "email": "paul.dacren@example.com",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 1,
+    "fields": {
+      "borrow_date": "2023-06-15",
+      "expected_return_date": "2023-06-30",
+      "actual_return_date": null,
+      "book": 1,
+      "user": 1
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 2,
+    "fields": {
+      "borrow_date": "2023-07-01",
+      "expected_return_date": "2023-07-15",
+      "actual_return_date": null,
+      "book": 2,
+      "user": 2
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 3,
+    "fields": {
+      "borrow_date": "2023-06-25",
+      "expected_return_date": "2023-07-10",
+      "actual_return_date": null,
+      "book": 3,
+      "user": 5
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 4,
+    "fields": {
+      "borrow_date": "2023-07-05",
+      "expected_return_date": "2023-07-20",
+      "actual_return_date": null,
+      "book": 4,
+      "user": 3
+    }
+  },
+  {
+    "model": "borrowings.borrowing",
+    "pk": 5,
+    "fields": {
+      "borrow_date": "2023-07-10",
+      "expected_return_date": "2023-07-25",
+      "actual_return_date": null,
+      "book": 5,
+      "user": 4
+    }
+  },
+  {
+    "model": "payments.payment",
+    "pk": 1,
+    "fields": {
+      "status": "PENDING",
+      "type": "PAYMENT",
+      "borrowing_id": 1,
+      "session_url": "https://example.com/session1",
+      "session_id": "session_1",
+      "money_to_pay": "10.99"
+    }
+  },
+  {
+    "model": "payments.payment",
+    "pk": 2,
+    "fields": {
+      "status": "PAID",
+      "type": "PAYMENT",
+      "borrowing_id": 2,
+      "session_url": "https://example.com/session2",
+      "session_id": "session_2",
+      "money_to_pay": "5.99"
+    }
+  },
+  {
+    "model": "payments.payment",
+    "pk": 3,
+    "fields": {
+      "status": "CANCELLED",
+      "type": "PAYMENT",
+      "borrowing_id": 3,
+      "session_url": "https://example.com/session3",
+      "session_id": "session_3",
+      "money_to_pay": "7.99"
+    }
+  },
+  {
+    "model": "payments.payment",
+    "pk": 4,
+    "fields": {
+      "status": "PENDING",
+      "type": "FINE",
+      "borrowing_id": 4,
+      "session_url": "https://example.com/session4",
+      "session_id": "session_4",
+      "money_to_pay": "2.99"
+    }
+  },
+  {
+    "model": "payments.payment",
+    "pk": 5,
+    "fields": {
+      "status": "PAID",
+      "type": "FINE",
+      "borrowing_id": 5,
+      "session_url": "https://example.com/session5",
+      "session_id": "session_5",
+      "money_to_pay": "4.99"
+    }
+  }
+]
