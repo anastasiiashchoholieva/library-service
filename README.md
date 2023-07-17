@@ -1,4 +1,4 @@
-# Social Media API
+# Library service API - BookWise
 
  ---
  This Django REST framework-based API serves as a RESTful interface for a library service.
@@ -20,16 +20,10 @@ This project uses environment variables for configuration. To set up the require
 ```
 docker-compose up --build
 ```
-You can use this admin user
+You can use this admin user to test project
 
 Email: `admin@admin.com`
 Password: `1qazcde3`
-
-or create one yourself using command:
-
-```
-python manage.py createsuperuser
-```
 
 Create schedule for running everyday check of borrowings
 
